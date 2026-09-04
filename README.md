@@ -194,5 +194,13 @@ corrected in the same change.
 
 ## Deploy
 
-Vercel, configured in `vercel.json` at the repo root — it installs and builds
-from `app/` and serves `app/dist`.
+Vercel, with **Root Directory set to `app`** and no command overrides — the Vite
+preset detects everything on its own, so there is no `vercel.json` to keep in
+sync.
+
+If you ever point Root Directory at the repo root instead, you have to supply
+the install and build commands yourself, since there is no `package.json` up
+there.
+
+No SPA rewrite is needed: the hub routes on the hash, so every URL is the same
+document.
