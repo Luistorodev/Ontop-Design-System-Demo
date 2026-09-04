@@ -1,0 +1,319 @@
+@import 'tailwindcss';
+
+/* ==================================================================
+   Ontop Foundations
+   Source of truth: Figma "00 - Ontop Foundations" (Q111EpmKAhOw3C2mxisUhe)
+   Transcribed from DESIGN.md.
+
+   Tier 3 only. Every custom property below is a semantic token — the
+   Hexes/Values and Color System tiers are plumbing and are deliberately
+   NOT emitted as utilities, so a component physically cannot reach for
+   `color-purple-500` instead of `accent/purple`.
+
+   Naming is 1:1 with Figma: `text/primary` is `--color-text-primary`,
+   used as `text-text-primary`. The doubled word is the cost of never
+   having to translate a name between the file and the code.
+   ================================================================== */
+
+@theme {
+  /* ---- Typography · family ---- */
+  --font-sans: 'General Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ---- Typescale · font-size ---- */
+  --text-xs: 10px;
+  --text-sm: 12px;
+  --text-md: 14px;
+  --text-lg: 16px;
+  --text-xl: 18px;
+  --text-2xl: 20px;
+  --text-3xl: 24px;
+  --text-4xl: 28px;
+  --text-5xl: 32px;
+  --text-6xl: 40px;
+
+  /* ---- Typescale · line-height ---- */
+  --leading-xs: 14px;
+  --leading-sm: 16px;
+  --leading-md: 20px;
+  --leading-title-md: 22px;
+  --leading-lg: 24px;
+  --leading-2xl: 28px;
+  --leading-3xl: 32px;
+  --leading-4xl: 36px;
+  --leading-5xl: 48px;
+
+  /* ---- Typescale · weight. General Sans ships 400/500/600 only. ---- */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* ---- Typescale · letter-spacing.
+         Both resolve to 0 today — see known gap 7. ---- */
+  --tracking-normal: 0em;
+  --tracking-tight: 0em;
+
+  /* ---- Spacing. 4-point base, fine to 16, then 8-point steps.
+         There is no sp-20: the 16 → 24 jump is intentional. ---- */
+  --spacing-sp-04: 4px;
+  --spacing-sp-08: 8px;
+  --spacing-sp-12: 12px;
+  --spacing-sp-16: 16px;
+  --spacing-sp-24: 24px;
+  --spacing-sp-32: 32px;
+  --spacing-sp-40: 40px;
+  --spacing-sp-48: 48px;
+  --spacing-sp-56: 56px;
+  --spacing-sp-64: 64px;
+  --spacing-sp-72: 72px;
+  --spacing-sp-80: 80px;
+  --spacing-sp-88: 88px;
+  --spacing-sp-96: 96px;
+  --spacing-sp-104: 104px;
+
+  /* ---- Border radius.
+         Figma's `br-NN` cannot be mirrored literally: `rounded-br-04`
+         would collide with Tailwind's bottom-right corner utility.
+         br-04 → rounded-04 … br-100 → rounded-pill. ---- */
+  --radius-04: 4px;
+  --radius-08: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-24: 24px;
+  --radius-32: 32px;
+  --radius-pill: 99999px;
+
+  /* ---- Elevation. Effect styles in Figma, not variables (gap 10).
+         No Dark variant exists — Dark carries elevation on the
+         card → card-raised → card-sunken surface ramp instead. ---- */
+  --shadow-xs: 0 1px 2px 0 rgb(13 12 12 / 0.05);
+  --shadow-sm: 0 1px 2px 0 rgb(13 12 12 / 0.06), 0 1px 3px 0 rgb(13 12 12 / 0.1);
+  --shadow-md: 0 2px 4px -2px rgb(13 12 12 / 0.06), 0 4px 8px -2px rgb(13 12 12 / 0.1);
+  --shadow-lg: 0 4px 6px -2px rgb(13 12 12 / 0.03), 0 12px 16px -4px rgb(13 12 12 / 0.08);
+
+  /* ================================================================
+     Tier 3 · Color — Light mode.
+     Dark values live in the [data-theme='dark'] block below, which is
+     unlayered and therefore wins over Tailwind's theme layer.
+     ================================================================ */
+
+  /* Typography/Color */
+  --color-text-primary: #1d2939;
+  --color-text-secondary: #475467;
+  --color-text-tertiary: #667085;
+  --color-text-placeholder: #98a2b3;
+  --color-text-disabled: #d0d5dd;
+  --color-text-inverse: #ffffff;
+  --color-text-on-brand: #ffffff;
+  --color-text-link: #6643ce;
+  --color-text-link-hover: #5135a5;
+
+  /* Surface/Color.
+     card, card-raised, card-sunken and overlay hold dark neutrals in
+     Light mode. That is transcribed faithfully because it is what the
+     file says — and it is blocking gap 1. Primary text on a Light card
+     measures 1.41:1. Do not build Light-mode cards on these. */
+  --color-surface-page: #fcfcfd;
+  --color-surface-subtle: #f9fafb;
+  --color-surface-card: #344054;
+  --color-surface-card-raised: #475467;
+  --color-surface-card-sunken: #1d2939;
+  --color-surface-overlay: #1d2939;
+  --color-surface-disabled: #f2f4f7;
+  --color-surface-inverse: #1d2939;
+  --color-surface-brand: #ff5a70;
+  --color-surface-brand-subtle: #de485d;
+
+  /* Border/Color */
+  --color-border-default: #d0d5dd;
+  --color-border-subtle: #eaecf0;
+  --color-border-strong: #98a2b3;
+  --color-border-focus: #7a50f7;
+  --color-border-disabled: #eaecf0;
+  --color-border-error: #f04438;
+  --color-border-success: #12b76a;
+  --color-border-warning: #f79009;
+  --color-border-brand: #6643ce;
+  --color-border-inverse: #f2f4f7;
+
+  /* Accent/Color. Decorative and categorical only — never the sole
+     carrier of meaning, never text on its own. */
+  --color-accent-brand: #ff5a70;
+  --color-accent-purple: #7a50f7;
+  --color-accent-lavender: #5856b7;
+  --color-accent-blue: #528bff;
+  --color-accent-green: #32d583;
+  --color-accent-yellow: #fdb022;
+  --color-accent-red: #f97066;
+
+  /* ================================================================
+     Component tokens · NavigationBar/Color
+     From 02 - Worker Design System, Navigation-Bar / Floating.
+     Component-level, not Foundations: every entry aliases the Purple
+     and Gray Blue ramps, with one exception — glass-tint is raw RGBA,
+     because Foundations has no translucent primitives.
+     item/label/* exists in the Figma collection but nothing consumes
+     it (the item is icon-only), so it is deliberately not emitted.
+     ================================================================ */
+  --color-nav-glass-tint: rgb(255 255 255 / 0.52);
+  --color-nav-bg: #ffffff;
+  --color-nav-border: #f2f4f7;
+  --color-nav-indicator-bg: #d3c5fc;
+  --color-nav-indicator-pressed: #f2f4f7;
+  --color-nav-icon-default: #667085;
+  --color-nav-icon-selected: #3d287b;
+  --color-nav-icon-pressed: #475467;
+}
+
+/* ================================================================
+   Tier 3 · Color — Dark mode.
+   ================================================================ */
+[data-theme='dark'] {
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #eaecf0;
+  --color-text-tertiary: #d0d5dd;
+  --color-text-placeholder: #98a2b3;
+  --color-text-disabled: #475467;
+  --color-text-inverse: #101828;
+  --color-text-on-brand: #ffffff;
+  --color-text-link: #a68afa;
+  --color-text-link-hover: #bca7fb;
+
+  --color-surface-page: #08051a;
+  --color-surface-subtle: #1d2939;
+  --color-surface-card: #2c2b5b;
+  --color-surface-card-raised: #1d1d3d;
+  --color-surface-card-sunken: #121125;
+  --color-surface-overlay: #2c2b5b;
+  --color-surface-disabled: #344054;
+  --color-surface-inverse: #fcfcfd;
+  --color-surface-brand: #de485d;
+  --color-surface-brand-subtle: #aa3c4b;
+
+  --color-border-default: #7472c3;
+  --color-border-subtle: #3b397a;
+  --color-border-strong: #908ecf;
+  --color-border-focus: #906df8;
+  --color-border-disabled: #475467;
+  --color-border-error: #fda29b;
+  --color-border-success: #6ce9a6;
+  --color-border-warning: #fec84b;
+  --color-border-brand: #906df8;
+  --color-border-inverse: #344054;
+
+  --color-accent-brand: #ff8c9c;
+  --color-accent-purple: #906df8;
+  --color-accent-lavender: #7472c3;
+  --color-accent-blue: #84adff;
+  --color-accent-green: #6ce9a6;
+  --color-accent-yellow: #fec84b;
+  --color-accent-red: #fda29b;
+
+  /* NavigationBar/Color — Dark */
+  --color-nav-glass-tint: rgb(255 255 255 / 0.14);
+  --color-nav-bg: #1d2939;
+  --color-nav-border: #475467;
+  --color-nav-indicator-bg: #5135a5;
+  --color-nav-indicator-pressed: #475467;
+  --color-nav-icon-default: #f9fafb;
+  --color-nav-icon-selected: #f3efff;
+  --color-nav-icon-pressed: #f9fafb;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-surface-page);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Checkerboard behind swatches, so near-white and transparent tokens read
+   as swatches rather than blending into the page. */
+.checker {
+  background-image:
+    linear-gradient(45deg, #0000000f 25%, transparent 25%),
+    linear-gradient(-45deg, #0000000f 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #0000000f 75%),
+    linear-gradient(-45deg, transparent 75%, #0000000f 75%);
+  background-size: 12px 12px;
+  background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+}
+
+/* The glass specular edge: a 1px vertical white gradient, bright at the top,
+   faint mid, soft at the bottom — 70% -> 16% -> 38%. This is what reads as a
+   glass edge. Figma cannot bind a gradient to a single variable, so it is the
+   one part of the navigation surface that is not tokenised.
+
+   A plain border cannot hold a gradient, and border-image does not follow a
+   border-radius, so it is painted as a masked ring on a pseudo-element. */
+.nav-glass-edge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0.7) 0%,
+    rgb(255 255 255 / 0.16) 50%,
+    rgb(255 255 255 / 0.38) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Without mask-composite the ring collapses into a filled gradient, which
+   would wash the whole bar white — a far worse failure than a flat border. */
+@supports not (mask-composite: exclude) {
+  .nav-glass-edge::before {
+    background: none;
+    border: 1px solid rgb(255 255 255 / 0.45);
+    padding: 0;
+  }
+}
+
+/* MANDATORY FALLBACK, per the component spec: wherever backdrop blur is
+   unavailable or the viewer asks for reduced transparency, the bar must fall
+   back to the opaque surface rather than render as a flat translucent panel.
+   Doing it in CSS means the fallback is automatic and cannot be forgotten. */
+@media (prefers-reduced-transparency: reduce) {
+  .nav-glass {
+    background-color: var(--color-nav-bg) !important;
+    backdrop-filter: none !important;
+  }
+  .nav-glass-edge::before {
+    background: var(--color-nav-border);
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .nav-glass {
+    background-color: var(--color-nav-bg);
+    border: 1px solid var(--color-nav-border);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
