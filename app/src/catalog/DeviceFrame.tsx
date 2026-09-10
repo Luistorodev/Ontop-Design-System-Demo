@@ -18,11 +18,18 @@ export function DeviceFrame({
   overlay,
   /** Height the overlay occupies, so content can reserve it plus the inset. */
   overlayHeight = 0,
+  sheet,
 }: {
   device: Device
   children: ReactNode
   overlay?: ReactNode
   overlayHeight?: number
+  /** A modal surface that fills the whole screen: a bottom sheet, a dialog, a
+   *  full-screen takeover. Unlike `overlay`, which centres a fixed-height bar
+   *  above the safe-area inset, this is mounted as a sibling of the scroll
+   *  area and left to position itself — so it spans the viewport edge to edge
+   *  and does not scroll with the content behind it. */
+  sheet?: ReactNode
 }) {
   const seLike = device.chrome === 'home-button'
   const sideBezel = seLike ? 12 : 11
@@ -57,15 +64,25 @@ export function DeviceFrame({
           </>
         ) : null}
 
-        {/* Screen */}
+        {/* Screen.
+
+            overflow-clip, not overflow-hidden. `hidden` clips but still makes
+            the box a scroll container, and a modal that slides in from below
+            extends that container's scrollable overflow by its own height. The
+            box then sits pinned at its maximum scroll and unwinds in lockstep
+            as the transform shrinks — which cancels the slide exactly: the
+            sheet looks frozen while the screen behind it moves instead.
+            `clip` clips without ever becoming scrollable, which is what a
+            device bezel should be anyway: nothing may scroll the screen itself,
+            only the content inside it. */}
         <div
-          className="relative overflow-hidden bg-surface-page"
+          className="relative overflow-clip bg-surface-page"
           style={{ width: device.width, height: device.height, borderRadius: device.radius }}
         >
           <StatusBar device={device} />
 
           <div
-            className="h-full overflow-y-auto"
+            className="device-scroll h-full overflow-y-auto"
             style={{
               paddingTop: device.statusBar,
               /* The rule the spec calls the single most common bug with
@@ -76,6 +93,8 @@ export function DeviceFrame({
           >
             {children}
           </div>
+
+          {sheet}
 
           {overlay ? (
             <div

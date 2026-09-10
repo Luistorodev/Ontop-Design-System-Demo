@@ -9,6 +9,7 @@ import { TierBackgrounds } from '../foundations/TierBackgrounds'
 import { Accessibility } from '../foundations/Accessibility'
 import { Status } from '../foundations/Status'
 import { NavigationBar } from '../entries/NavigationBar'
+import { InfoSheet } from '../entries/InfoSheet'
 
 /* Adding a page to the hub is adding a line here.
 
@@ -42,6 +43,13 @@ export const sections: Section[] = [
         status: 'ready',
         figmaNodeId: '12253-10731',
         page: NavigationBar,
+      },
+      {
+        id: 'info-sheet',
+        name: 'Info sheet',
+        status: 'ready',
+        figmaNodeId: '12497-17075',
+        page: InfoSheet,
       },
     ],
   },

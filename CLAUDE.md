@@ -50,6 +50,25 @@ bug. Never add a tier-1 or tier-2 value to `index.css`.
   the blur then samples the inside of the element instead of the page behind
   it — the glass silently renders as a flat tint, with no error. Put the
   animation on the glass element itself.
+- **Clip a sliding overlay with `overflow-clip`, never `overflow-hidden`.**
+  `hidden` clips but still makes the box a scroll container, and a surface that
+  animates in from off-screen extends that container's scrollable overflow by
+  its own height. The container then sits pinned at its maximum scroll and
+  unwinds in lockstep as the transform shrinks, cancelling the animation
+  exactly: the panel looks frozen while everything around it moves. Nothing
+  errors, and the transform reads as correct in DevTools — measure the panel's
+  own `getBoundingClientRect().top` across frames to catch it. `clip` clips
+  without ever becoming scrollable. Also focus a modal with
+  `focus({ preventScroll: true })`, or the page jumps to chase a panel that is
+  still off-screen.
+- **A Figma stroke is inside the frame; a CSS `border` is not.** Figma draws
+  strokes inward, so a 360 frame with a 1px border still lays its children out
+  across a full 360. A CSS `border` eats 2px of content width, adds to the
+  height, and shifts every absolutely positioned child by 1 — because absolute
+  offsets resolve against the padding box. Nothing errors; the component just
+  quietly misses its spec by a few pixels. Use
+  `shadow-[inset_0_0_0_1px_var(--color-…)]` instead, and check the composed
+  height against the number the Figma frame reports.
 - Code and comments in English. Comments explain *why* something matches the
   design, not what the line does.
 - `src/ui/` must not import from `src/catalog/`. The catalog is the hub's own
@@ -75,13 +94,23 @@ Token names are 1:1 with Figma: `text/primary` is `--color-text-primary`, used
 as `text-text-primary`. The doubled word is the cost of never having to
 translate a name between the file and the code.
 
-Two deliberate exceptions, both forced by collisions with Tailwind's own
-utilities:
+Three deliberate exceptions. The first two are forced by collisions with
+Tailwind's own utilities:
 
 - `br-04` → `rounded-04`, `br-100` → `rounded-pill`. `rounded-br-04` would mean
   "bottom-right".
 - `sp-16` keeps its prefix as `p-sp-16`, so it can never be confused with
   Tailwind's numeric `p-4` (16px, not 4px).
+
+The third is forced by a collision inside the token system itself:
+
+- **A component collection that reuses a tier-3 global name is prefixed with
+  the component.** `StepItem/Color` defines `text/primary` and `text/secondary`,
+  which already exist as globals — and its Dark `text/secondary` is a different
+  value, so the two cannot be merged. It becomes
+  `--color-stepitem-text-secondary`. Collections whose Figma group names are
+  already unambiguous stay 1:1: `InfoSheet/Color` keeps `sheet/bg` → `sheet-bg`,
+  the same way `NavigationBar/Color` keeps `nav-*`.
 
 ## Adding a page
 

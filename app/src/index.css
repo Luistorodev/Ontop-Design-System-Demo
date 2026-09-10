@@ -164,6 +164,55 @@
   --color-nav-icon-default: #667085;
   --color-nav-icon-selected: #3d287b;
   --color-nav-icon-pressed: #475467;
+
+  /* ================================================================
+     Component tokens · InfoSheet/Color
+     From 02 - Worker Design System, InfoSheet (node 12497:17075).
+     Values mirror Buttom_Sheet [New], so the two sheets are visually
+     identical in either mode. Group names arrive from Figma already
+     scoped (sheet/, close/, home-indicator/), so the mapping stays 1:1.
+     ================================================================ */
+  --color-sheet-bg: #ffffff;
+  --color-sheet-border: #f2f4f7;
+  --color-close-bg: #f2f4f7;
+  --color-close-icon: #667085;
+  --color-home-indicator-bg: #ffffff;
+  --color-home-indicator-bar: #d0d5dd;
+
+  /* ================================================================
+     Component tokens · StepItem/Color
+     From 02 - Worker Design System, _StepItem (node 12497:17258).
+     Prefixed, unlike InfoSheet above: the Figma collection reuses the
+     names text/primary and text/secondary, which already exist as
+     tier-3 globals — and its Dark text/secondary is a different value
+     from the global one, so the two cannot be merged. See CLAUDE.md
+     §Naming, third exception.
+     card/border is created in the collection and bound to nothing in
+     Figma. It is emitted in both modes but deliberately left unapplied:
+     the component page flags it rather than binding it here.
+     ================================================================ */
+  --color-stepitem-card-bg: #f2f4f7;
+  --color-stepitem-card-border: #eaecf0;
+  --color-stepitem-number-text: #281782;
+  --color-stepitem-text-primary: #1d2939;
+  --color-stepitem-text-secondary: #475467;
+
+  /* ================================================================
+     Provisional · Button/Color and Component/Link
+     Neither Button nor Link exists in src/ui yet, but both appear
+     inside InfoSheet and StepItem, so the five button values and the
+     link colour are emitted here to keep the two components free of
+     hardcoded hex. Read from the resolved Light and Dark stages of the
+     InfoSheet guidance (nodes 12538:10504 and 12538:10529) — not
+     guessed. Delete this block when Button and Link are built: it is
+     scaffolding, exactly like the _SlotContent placeholder in Figma.
+     ================================================================ */
+  --color-button-primary-filled-bg: #7a50f7;
+  --color-button-primary-filled-text: #ffffff;
+  --color-button-primary-outline-bg: #ffffff;
+  --color-button-primary-outline-border: #906df8;
+  --color-button-primary-outline-text: #6643ce;
+  --color-link-primary-default: #7a50f7;
 }
 
 /* ================================================================
@@ -219,6 +268,37 @@
   --color-nav-icon-default: #f9fafb;
   --color-nav-icon-selected: #f3efff;
   --color-nav-icon-pressed: #f9fafb;
+
+  /* InfoSheet/Color — Dark */
+  --color-sheet-bg: #08051a;
+  --color-sheet-border: #344054;
+  --color-close-bg: #344054;
+  --color-close-icon: #d0d5dd;
+  --color-home-indicator-bg: #08051a;
+  --color-home-indicator-bar: #667085;
+
+  /* StepItem/Color — Dark.
+     number/text and text/secondary do NOT match the Dark column of the
+     StepItem guidance table: it states indigo-100 #B7B2D5 and
+     gray-blue-400 #D0D5DD, while the component resolves indigo-50
+     #EFEDFD and gray-blue-100 #F9FAFB in both Dark stages
+     (12500:32071 and 12538:10529). Figma outranks the guidance, so the
+     resolved values are transcribed and the drift is flagged on the
+     page — the consequence is that the title/description hierarchy
+     step falls to 1.05:1 in Dark. */
+  --color-stepitem-card-bg: #1d2939;
+  --color-stepitem-card-border: #475467;
+  --color-stepitem-number-text: #efedfd;
+  --color-stepitem-text-primary: #ffffff;
+  --color-stepitem-text-secondary: #f9fafb;
+
+  /* Provisional · Button/Color and Component/Link — Dark */
+  --color-button-primary-filled-bg: #7a50f7;
+  --color-button-primary-filled-text: #f3efff;
+  --color-button-primary-outline-bg: #181031;
+  --color-button-primary-outline-border: #7a50f7;
+  --color-button-primary-outline-text: #f3efff;
+  --color-link-primary-default: #a68afa;
 }
 
 html,
@@ -238,6 +318,60 @@ body {
 
 /* Checkerboard behind swatches, so near-white and transparent tokens read
    as swatches rather than blending into the page. */
+/* The scrolling screen inside a device frame.
+
+   A phone has no scrollbar gutter, so a visible one both lies about the
+   platform and steals 15px from a viewport whose width is the whole point of
+   the frame. Hidden in every engine — `scrollbar-width` for Firefox and modern
+   Chrome, the pseudo-element for older WebKit.
+
+   `overscroll-behavior: contain` is what actually makes the scroll feel right:
+   without it, reaching the end of the screen hands the gesture to the
+   documentation page behind and the phone appears to drag the whole hub with
+   it. `scroll-behavior: smooth` covers programmatic and anchor jumps, and is
+   dropped under Reduce Motion below. */
+.device-scroll,
+.sheet-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.device-scroll::-webkit-scrollbar,
+.sheet-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* The InfoSheet's top scroll fade.
+
+   A plain two-stop `sheet/bg → transparent` barely registers, for two reasons:
+   a linear alpha ramp gives up most of its opacity in the first third, and the
+   two colours it blends are already close — #08051A against #1D2939 in Dark,
+   #FFFFFF against #F2F4F7 in Light. Almost no perceptual distance to work with.
+
+   So the ramp holds fully opaque for its first third — long enough to mask the
+   grab handle and the top of the floating close button, which is what makes
+   content read as passing *under* the chrome — and then falls off on an
+   ease-out curve rather than linearly. The extra stops are what stop it
+   banding.
+
+   Built from --color-sheet-bg, so it follows the sheet into Dark with no token
+   of its own. */
+.sheet-fade {
+  background: linear-gradient(
+    to bottom,
+    var(--color-sheet-bg) 0%,
+    var(--color-sheet-bg) 36%,
+    color-mix(in srgb, var(--color-sheet-bg) 82%, transparent) 50%,
+    color-mix(in srgb, var(--color-sheet-bg) 62%, transparent) 62%,
+    color-mix(in srgb, var(--color-sheet-bg) 40%, transparent) 74%,
+    color-mix(in srgb, var(--color-sheet-bg) 20%, transparent) 86%,
+    transparent 100%
+  );
+}
+
 .checker {
   background-image:
     linear-gradient(45deg, #0000000f 25%, transparent 25%),
@@ -315,5 +449,12 @@ body {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* Smooth scrolling is motion too: a viewer who asked for less of it should
+     get an instant jump, not an animated one. */
+  .device-scroll,
+  .sheet-scroll {
+    scroll-behavior: auto;
   }
 }
