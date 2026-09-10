@@ -1,6 +1,5 @@
 import { useState, type ReactNode } from 'react'
 import { InfoSheet as Sheet, StepItem } from '../ui/InfoSheet'
-import { SendIllustration } from '../icons/info-sheet'
 import { GapNote, Mono, PageHeader, Section, Table, ViewTabs } from '../catalog/docs'
 import { DeviceFrame, DevicePicker } from '../catalog/DeviceFrame'
 import { devices } from '../catalog/devices'
@@ -68,7 +67,6 @@ const STEPS = [
 function Preview() {
   const [open, setOpen] = useState(true)
   const [secondary, setSecondary] = useState(true)
-  const [illustration, setIllustration] = useState(true)
   const [numbered, setNumbered] = useState(true)
   const [link, setLink] = useState(true)
   const [steps, setSteps] = useState(3)
@@ -103,7 +101,6 @@ function Preview() {
                   title={step.title}
                   description={step.description}
                   number={numbered ? i + 1 : undefined}
-                  illustration={illustration ? <SendIllustration /> : undefined}
                   link={link ? { label: 'Link', href: '#' } : undefined}
                 />
               ))}
@@ -160,13 +157,12 @@ function Preview() {
 
           <Control label="StepItem — optional parts">
             <div className="flex flex-wrap gap-sp-08">
-              <Toggle label="Illustration" on={illustration} onChange={setIllustration} />
               <Toggle label="Number" on={numbered} onChange={setNumbered} />
               <Toggle label="Link" on={link} onChange={setLink} />
             </div>
             <p className="mt-sp-08 max-w-[42ch] text-sm leading-sm text-text-tertiary">
-              Everything except the title and description is optional. The card hugs, so it
-              shortens with each part switched off.
+              The number and the link are optional; the title and description are not. The card
+              hugs, so it shortens with each part switched off.
             </p>
           </Control>
 
@@ -185,7 +181,6 @@ function Preview() {
                 '    title="Add your bank account"',
                 '    description="We use it to send your money."',
                 ...(numbered ? ['    number={1}'] : []),
-                ...(illustration ? ['    illustration={<SendIllustration />}'] : []),
                 ...(link ? ['    link={{ label: \'Link\', href: \'#\' }}'] : []),
                 '  />',
                 '</InfoSheet>',
@@ -443,7 +438,7 @@ function Documentation() {
         <DoDont
           dos={[
             'Use it for explanation and confirmation — content the user reads, then acts on with one or two choices.',
-            'Put StepItem lists, illustrations or copy blocks in the slot. That is what it is for.',
+            'Put StepItem lists or copy blocks in the slot. That is what it is for.',
             'Turn the secondary action off when there is only one real action. An outline button with nothing to say is noise.',
             'Let the height hug. The sheet is designed to grow with the slot.',
             'Delete the _SlotContent placeholder once the real content is in — it is scaffolding, not a default.',
@@ -607,7 +602,7 @@ function StepItemDocs() {
     <>
       <Section
         title="StepItem"
-        description="A private child of InfoSheet — one numbered step: illustration, display number, title, description and an optional link. It is not a standalone card, and it has no page of its own in Figma’s component list for that reason."
+        description="A private child of InfoSheet — one numbered step: display number, title, description and an optional link. It is not a standalone card, and it has no page of its own in Figma’s component list for that reason."
         aside={
           <a
             className="text-md leading-md font-medium text-text-link hover:text-text-link-hover"
@@ -633,7 +628,6 @@ function StepItemDocs() {
               title="Tittle Label"
               description="Description Label"
               number={1}
-              illustration={<SendIllustration />}
               link={{ label: 'Link', href: '#' }}
             />
           </div>
@@ -645,17 +639,16 @@ function StepItemDocs() {
 
       <Section
         title="Anatomy"
-        description="Container, illustration slot, display number, title, description and trailing link. Everything except the title and description is optional."
+        description="Container, display number, title, description and trailing link. The number and the link are optional; the title and description are not. Figma also carries an illustration slot, dropped here by team decision — see Deviations."
       >
         <Table head={['#', 'Element', 'Notes']}>
           {[
             ['1', 'Container', 'Vertical auto-layout, 328 fixed / hug height. Radius br-12, padding sp-12. Fill card/bg.'],
-            ['2', 'Illustration slot', '80×80 SLOT. Optional. Accepts illustration component sets.'],
-            ['3', 'Step number', 'Display text 48/56 Semibold, colour number/text. Sits outside the Typescale.'],
-            ['4', 'Title', 'font-size/lg + line-height/title-md, Semibold. Colour text/primary. One line.'],
-            ['5', 'Description', 'font-size/lg + line-height/lg, Regular. Colour text/secondary. Wraps freely.'],
-            ['6', 'Link', 'Link · Size sm · Colour Primary. Optional. Owns its colour from Component/Link.'],
-            ['7', 'Inner spacing', 'sp-04 between title and description. Root gap sp-08.'],
+            ['2', 'Step number', 'Display text 48/56 Semibold, colour number/text. Sits outside the Typescale.'],
+            ['3', 'Title', 'font-size/lg + line-height/title-md, Semibold. Colour text/primary. One line.'],
+            ['4', 'Description', 'font-size/lg + line-height/lg, Regular. Colour text/secondary. Wraps freely.'],
+            ['5', 'Link', 'Link · Size sm · Colour Primary. Optional. Owns its colour from Component/Link.'],
+            ['6', 'Inner spacing', 'sp-04 between title and description. Root gap sp-08.'],
           ].map(([n, el, note]) => (
             <tr key={n} className="border-b border-border-subtle last:border-0">
               <td className="px-sp-16 py-sp-08 font-mono text-sm text-text-tertiary">{n}</td>
@@ -678,13 +671,12 @@ function StepItemDocs() {
             ['Container padding', '12 all sides', 'sp-12', 'Bound.'],
             ['Container radius', '12', 'br-12', 'Bound.'],
             ['Root gap', '8', 'sp-08', 'Bound — the guidance still calls this an unbound 10. See Deviations.'],
-            ['Illustration slot', '80 × 80', '—', 'Fixed. Optional.'],
             ['Step number', '48 / 56', '— none', 'Heading/3xl, unbound. Typescale caps at font-size/6xl 40 and line-height/5xl 48.'],
             ['Title', '16 / 22', 'font-size/lg · line-height/title-md', 'Fills the container width. One line.'],
             ['Description', '16 / 24', 'font-size/lg · line-height/lg', 'Fills the container width, wraps freely.'],
             ['Title → description gap', '4', 'sp-04', 'Bound.'],
             ['Link', 'hug × 20', '—', 'Size sm. Optional.'],
-            ['Default height', '254', '—', 'All three optional parts on, at 328 wide. Drops to 138 with the illustration and link off.'],
+            ['Default height', '166', '—', 'Number, title, description and link at 328 wide. Drops to 138 with the link off. Figma states 254, which includes the illustration slot.'],
           ].map(([el, size, token, note]) => (
             <tr key={el} className="border-b border-border-subtle last:border-0">
               <td className="px-sp-16 py-sp-08 font-medium whitespace-nowrap text-text-primary">
@@ -708,8 +700,8 @@ function StepItemDocs() {
         </h3>
         <Table head={['Property', 'Type', 'Default', 'Notes']}>
           {[
-            ['Ilustration Slot', 'SLOT', 'Illustration/Send', '93 preferred values — effectively the whole illustration library. Narrow it to the sets that apply to a step.'],
-            ['Show Ilustration Slot', 'BOOLEAN', 'true', 'Hides the 80×80 slot. Container hugs, so the card shortens.'],
+            ['Ilustration Slot', 'SLOT', 'Illustration/Send', 'Not implemented — dropped by team decision. 93 preferred values in Figma, effectively the whole illustration library.'],
+            ['Show Ilustration Slot', 'BOOLEAN', 'true', 'Not implemented — the slot it toggles no longer exists in code.'],
             ['Show Numer Tittle', 'BOOLEAN', 'true', 'Hides the display number. The name is ambiguous — it reads as if it also controlled the title.'],
             ['Show Link', 'BOOLEAN', 'true', 'Hides the trailing link.'],
             ['Title', '— not exposed', 'Tittle Label', 'Should be a TEXT property. Without it the component has no contract.'],
@@ -737,7 +729,6 @@ function StepItemDocs() {
             ['title', 'string', 'yes', 'One line. Let the description carry the detail.'],
             ['description', 'string', 'yes', 'Wraps freely — which is why the container must keep hugging.'],
             ['number', 'number?', '—', 'Decorative and aria-hidden. Let the parent own it so the sequence stays consecutive.'],
-            ['illustration', 'ReactNode?', '—', 'The 80×80 slot. Omit it for a text-only step.'],
             ['link', '{ label, href }?', '—', 'Provisional until Link is built.'],
           ].map(([p, t, r, n]) => (
             <tr key={p} className="border-b border-border-subtle last:border-0">
@@ -787,7 +778,7 @@ function StepItemDocs() {
             'Use StepItem only inside InfoSheet. It is a private child, not a standalone card.',
             'Let the parent own the numbering so the sequence stays consecutive when a step is added or removed.',
             'Keep the title to one line and let the description carry the detail.',
-            'Turn the illustration off for text-only steps — the container hugs and the card shortens.',
+            'Turn the number off when the list is not a sequence — the container hugs and the card shortens.',
             'Bind card/border before shipping Dark; without it the card sits at 1.36:1 against the sheet.',
           ]}
           donts={[
@@ -827,10 +818,21 @@ function StepItemDocs() {
         description="The StepItem guidance frame is the one place where the written spec and the component measurably disagree."
       >
         <div className="space-y-sp-12">
+          <Deviation title="The illustration slot was dropped by team decision">
+            Figma carries an 80 × 80 <Mono>Ilustration Slot</Mono> with 93 preferred values,
+            defaulting to <Mono>Illustration/Send</Mono>, plus the{' '}
+            <Mono>Show Ilustration Slot</Mono> boolean that toggles it. Neither is implemented: the
+            team removed the illustration, so the card is number, title, description and link, and
+            the default height drops from 254 to <strong className="text-text-primary">166</strong>.
+            The file and this component now disagree, which is the one thing this hub is not
+            supposed to do — the slot needs to come out of Figma too, or this page will keep
+            reporting a property that no longer exists anywhere but the file.
+          </Deviation>
           <Deviation title="The root gap is bound, and the heights are 6px shorter">
             The guidance calls the root gap &ldquo;10 px, unbound, off-scale&rdquo; and gives 260
             for the default height and 140 with the illustration and link off. The component binds{' '}
-            <Mono>sp-08</Mono>, and all three numbers follow: the symbol measures{' '}
+            <Mono>sp-08</Mono>, and all three numbers follow: the Figma symbol — which still has
+            the illustration slot in it — measures{' '}
             <strong className="text-text-primary">328 × 254</strong>, and the reduced variant 138.
             Three gaps at 8 instead of 10 is exactly the 6px difference. The gap was fixed after
             the guidance was written.

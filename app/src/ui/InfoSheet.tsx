@@ -84,7 +84,6 @@ export function StepItem({
   title,
   description,
   number,
-  illustration,
   link,
   className = '',
 }: {
@@ -95,8 +94,6 @@ export function StepItem({
   /** Decorative: the reading order carries the sequence, not the digit. Let the
    *  parent own it so the list stays consecutive when a step is added. */
   number?: number
-  /** The 80x80 illustration slot. Any illustration from Foundations. */
-  illustration?: ReactNode
   link?: { label: string; href: string }
   className?: string
 }) {
@@ -106,15 +103,17 @@ export function StepItem({
        an independent measurement, and a card that stayed 328 inside a
        full-width sheet would sit short of the right-hand padding.
 
+       No illustration slot: dropped by team decision. Figma still carries it —
+       an 80 x 80 SLOT with 93 preferred values, defaulting to
+       Illustration/Send — so the file and this component now disagree until the
+       slot comes out of Figma too. Recorded on the component page.
+
        The root gap is sp-08 — the guidance text still calls it an unbound 10,
-       but the component binds sp-08 and measures 254 tall at 328 wide. */
+       but the component binds sp-08 and measures 166 tall at 328 wide, against
+       the 254 the guidance states for a card with the illustration in. */
     <div
       className={`flex w-full flex-col items-start gap-sp-08 rounded-12 bg-stepitem-card-bg p-sp-12 ${className}`}
     >
-      {illustration ? (
-        <div className="size-[80px] shrink-0 overflow-clip">{illustration}</div>
-      ) : null}
-
       {number !== undefined ? (
         /* 48/56 is Heading/3xl, which DESIGN.md §11.8 records as unbound: the
            Typescale stops at font-size/6xl 40 and line-height/5xl 48, so there

@@ -10,32 +10,6 @@
 
 type IconProps = { className?: string }
 
-/* Illustration/Send, node 12497:17648 — the default payload of the StepItem
-   illustration slot.
-
-   The only raster asset in the repo. Figma exports it as a 1024 PNG, not a
-   vector, so it cannot be transcribed the way the glyphs above are: it stays a
-   file and is served from public/. Both dimensions are set explicitly, because
-   an `auto` here would paint the image at its intrinsic 1024. It is decorative
-   — the step title and description carry the meaning — so the alt is empty. */
-export function SendIllustration({ className }: IconProps) {
-  return (
-    <img
-      src="/figma/illustration-send.png"
-      alt=""
-      width={80}
-      height={80}
-      /* Figma exports this at 1024 for an 80 slot — a 13x oversample. The file
-         is kept exactly as exported, because a re-drawn or re-sampled asset
-         stops being traceable to the source, but the decode is pushed off the
-         main thread: without this it lands on the same frame that starts the
-         sheet's slide and the first frames of the animation drop. */
-      decoding="async"
-      className={className ?? 'size-[80px]'}
-    />
-  )
-}
-
 /** Close-button glyph, node 12511:34980. Figma bakes #667085 — close/icon in
  *  Light — into the export; it is swapped for currentColor so Dark resolves. */
 export function CloseIcon({ className }: IconProps) {
