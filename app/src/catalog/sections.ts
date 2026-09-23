@@ -10,6 +10,7 @@ import { Accessibility } from '../foundations/Accessibility'
 import { Status } from '../foundations/Status'
 import { NavigationBar } from '../entries/NavigationBar'
 import { InfoSheet } from '../entries/InfoSheet'
+import { Topbar } from '../entries/Topbar'
 
 /* Adding a page to the hub is adding a line here.
 
@@ -50,6 +51,17 @@ export const sections: Section[] = [
         status: 'ready',
         figmaNodeId: '12497-17075',
         page: InfoSheet,
+      },
+      {
+        /* wip, not ready: the status badge on the Figma page could not be read
+           from the node, and the hub page is a preview rather than the full
+           Anatomy → Related sequence. Understating it is the safe direction —
+           correct it here once the file's own badge is confirmed. */
+        id: 'topbar',
+        name: 'Topbar',
+        status: 'wip',
+        figmaNodeId: '12792-21495',
+        page: Topbar,
       },
     ],
   },
