@@ -2,9 +2,9 @@
 
    Exported from Figma (02 - Worker Design System, Topbar node 12792:21495)
    and transformed only in one way: the baked fill is swapped for
-   `currentColor`. Both icons are bound to text/primary in the file — Light
-   resolves #1D2939, Dark resolves #FFFFFF — so a single export per glyph
-   covers both moods and follows the hub's theme with no second asset.
+   `currentColor`. Both icons are bound to General/Icon in the file — Light
+   resolves #344054, Dark #F9FAFB — so a single export per glyph covers both
+   moods and follows the hub's theme with no second asset.
    No path data was authored here.
 
    The root width/height are the vectors' own sizes inside their 24x24 icon

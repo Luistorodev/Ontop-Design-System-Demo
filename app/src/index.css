@@ -198,21 +198,102 @@
   --color-stepitem-text-secondary: #475467;
 
   /* ================================================================
-     Component tokens · Topbar/Color
-     From 02 - Worker Design System, Topbar (node 12792:21495).
-     The collection publishes exactly one token, Topbar/Color/Surface,
-     and only the Light variants bind it. Mood=Dark binds the tier-1
-     primitive Indigo (Secondary)/color-indigo-900 #0D082B straight onto
-     the frame instead, so the collection has no Dark column to read.
-     That is the gap to flag on the component page: a component reaching
-     past tier 3 into a ramp. The Dark value below is that resolved hex,
-     so the component follows the hub's theme like every other one here;
-     nothing is corrected, only re-homed into tier 3.
-     Everything else the component needs already exists as a global:
-     both icons and the title resolve text/primary, the subtitle
-     text/tertiary.
+     Component tokens · Aura collection, General group
+     From 02 - Worker Design System: shared by Topbar (12792:21495),
+     Composer (12921:7956), Background (12986:9473), Logo and Messages.
+     Renamed in Figma on 2026-10-08 from Topbar/Color/* to General/* —
+     same values — and followed here 1:1. Modes are
+     "Ligth" [sic] and Dark; the group names collide with no global, so
+     they stay 1:1. The Dark column is read from the collection itself —
+     the component sets only draw Light.
+     Re-read 2026-10-06: Topbar moved onto this collection (the old
+     single-token Topbar/Color collection is gone from the file), and
+     title's Dark value was fixed in Figma from text/inverse #101828 to
+     gray-blue-100 #F9FAFB.
      ================================================================ */
-  --color-topbar-surface: #fcfcfd;
+  --color-general-input: #f9fafb;
+  --color-general-stroke: #ffffff;
+  --color-general-title: #1d2939;
+  --color-general-help-text: #667085;
+  --color-general-surface-purple: #d3c5fc;
+  /* Figma stores Fade Purple as Surface purple's primitive at 0 opacity,
+     so the transparent end keeps the hue instead of fading through grey. */
+  --color-general-fade-purple: rgb(211 197 252 / 0);
+  /* The screen and bar surface (Topbar, Background), and the Topbar's
+     back and menu glyphs. */
+  --color-general-surface-white: #fcfcfd;
+  /* Surface white at 0 opacity — the Topbar's scroll fade ends in the
+     surface's own hue, not in a grey transparent. */
+  --color-general-fade-white: rgb(252 252 253 / 0);
+  --color-general-icon: #344054;
+  /* The Background glow. Both alias tier-2 primitives (blue-400,
+     purple-400) and resolve the same in Dark — by design, confirmed
+     with the team on 2026-10-06. */
+  --color-general-blob-azul: #84adff;
+  --color-general-blob-purple: #906df8;
+  /* The Logo's Gradient fill (node 13196:7849): a vertical gradient
+     between these two, top to bottom. Both move with the mood. */
+  --color-general-gradient-light: #7a50f7;
+  --color-general-gradient-dark: #21136c;
+  /* Logo, Color=White. Created 2026-10-07 as white in both modes; Figma
+     changed its Light value to purple-500 on 2026-10-08 (team confirmed),
+     so it is white only in Dark. */
+  --color-general-logo-white: #7a50f7;
+
+  /* ================================================================
+     Component tokens · Aura collection, Semantic group (was Banner/*,
+     renamed in Figma on 2026-10-08)
+     From 02 - Worker Design System, Banner (node 13203:8052). Each type
+     has a colour (border, text, link, icon) and a background. In Dark the
+     background is a darker step of the same hue at 30% opacity, so it
+     tints whatever surface it sits on instead of painting over it.
+     ================================================================ */
+  --color-semantic-neutral: #6643ce;
+  --color-semantic-neutral-bg: #f3efff;
+  --color-semantic-info: #2970ff;
+  --color-semantic-info-bg: #eff4ff;
+  --color-semantic-error: #f04438;
+  --color-semantic-error-bg: #fee4e2;
+  --color-semantic-warning: #dc6803;
+  --color-semantic-warning-bg: #feefc7;
+  --color-semantic-success: #039855;
+  --color-semantic-success-bg: #ecfdf3;
+
+  /* ================================================================
+     Component tokens · Aura collection, Chat group
+     From 02 - Worker Design System, Messages (Bubbles 13286:821,
+     Message action 13263:13017). "black" and "white" name the role in
+     Light — the Dark column inverts them.
+     ================================================================ */
+  --color-chat-text-black: #475467;
+  --color-chat-text-white: #f2f4f7;
+  --color-chat-highlight: #6643ce;
+  --color-chat-background: #f9fafb;
+  --color-chat-stroke-negative: #5135a5;
+  --color-chat-stroke-positive: #ffffff;
+  --color-chat-actions: #291b52;
+  --color-chat-pressed: #7064ac;
+  --color-chat-disabled: #d0d5dd;
+
+  /* ================================================================
+     Component tokens · Component/Tag
+     Only the purple tag, the one the Composer draws. The label and the
+     dismiss glyph are NOT bound in Figma — a raw #6643CE in both modes —
+     so tag-purple-content has the same value in Dark, flagged on the page.
+     ================================================================ */
+  --color-tag-purple-background: #d3c5fc;
+  --color-tag-purple-content: #6643ce;
+
+  /* ================================================================
+     Aura · Composer — added to the collection on 2026-10-08. The primary
+     action's gradient (indigo-500 → purple-500) and the attachment tile
+     (base-white, gray-blue-200). Each aliases the same primitive in both
+     modes, so Dark draws them exactly as Light — as the file always did.
+     ================================================================ */
+  --color-composer-action-start: #281782;
+  --color-composer-action-end: #7a50f7;
+  --color-composer-attachment-bg: #ffffff;
+  --color-composer-attachment-stroke: #f2f4f7;
 
   /* ================================================================
      Provisional · Button/Color and Component/Link
@@ -230,6 +311,36 @@
   --color-button-primary-outline-border: #906df8;
   --color-button-primary-outline-text: #6643ce;
   --color-link-primary-default: #7a50f7;
+  /* Secondary hierarchy, added for the Composer's attach, more and file
+     buttons. Read from the Button/Color collection (Light and Dark). */
+  --color-button-secondary-filled-bg: #667085;
+  --color-button-secondary-filled-text: #ffffff;
+  --color-button-secondary-outline-bg: #ffffff;
+  --color-button-secondary-outline-border: #d0d5dd;
+  --color-button-secondary-outline-text: #667085;
+  /* Primary · Filled · disabled, for the Composer's Send with nothing to
+     send. Read from the Button/Color collection (Light and Dark). */
+  --color-button-primary-filled-bg-disabled: #a68afa;
+  --color-button-primary-filled-icon-disabled: #ffffff;
+
+  /* ================================================================
+     Aura · Form — the Form card and the icons of the Chip and Chip input.
+     ================================================================ */
+  /* ================================================================
+     Aura · Nudge — added on 2026-10-09 so the Nudge has its own Dark
+     values instead of sharing General/Gradient light and dark. Light keeps
+     the file's colours except the highlight, raised from #6643CE to
+     purple-100 for contrast on the dark fill.
+     ================================================================ */
+  --color-nudge-gradient-light: #7a50f7;
+  --color-nudge-gradient-dark: #21136c;
+  --color-nudge-text: #f2f4f7;
+  --color-nudge-highlight: #d3c5fc;
+  --color-nudge-icon: #f9fafb;
+
+  --color-form-background: #ffffff;
+  --color-form-stroke: #eaecf0;
+  --color-form-icon: #667085;
 }
 
 /* ================================================================
@@ -309,12 +420,6 @@
   --color-stepitem-text-primary: #ffffff;
   --color-stepitem-text-secondary: #f9fafb;
 
-  /* Topbar/Color — Dark.
-     Indigo (Secondary)/color-indigo-900, which is what Mood=Dark
-     actually binds. Deliberately not --color-surface-page (#08051A):
-     the topbar sits a step lighter than the page in Dark. */
-  --color-topbar-surface: #0d082b;
-
   /* Provisional · Button/Color and Component/Link — Dark */
   --color-button-primary-filled-bg: #7a50f7;
   --color-button-primary-filled-text: #f3efff;
@@ -322,7 +427,198 @@
   --color-button-primary-outline-border: #7a50f7;
   --color-button-primary-outline-text: #f3efff;
   --color-link-primary-default: #a68afa;
+  --color-button-secondary-filled-bg: #667085;
+  --color-button-secondary-filled-text: #fcfcfd;
+  --color-button-secondary-outline-bg: #101828;
+  --color-button-secondary-outline-border: #98a2b3;
+  --color-button-secondary-outline-text: #fcfcfd;
+  --color-button-primary-filled-bg-disabled: #3d287b;
+  --color-button-primary-filled-icon-disabled: #98a2b3;
+
+  /* Aura · General — Dark, read from the collection. */
+  --color-general-input: #140b41;
+  --color-general-stroke: #21136c;
+  --color-general-title: #f2f4f7;
+  --color-general-help-text: #98a2b3;
+  --color-general-surface-purple: #3b397a;
+  --color-general-fade-purple: rgb(59 57 122 / 0);
+  --color-general-surface-white: #0d082b;
+  --color-general-fade-white: rgb(13 8 43 / 0);
+  --color-general-icon: #f9fafb;
+  --color-general-blob-azul: #84adff;
+  --color-general-blob-purple: #906df8;
+  --color-general-gradient-light: #d3c5fc;
+  --color-general-gradient-dark: #6643ce;
+  --color-general-logo-white: #ffffff;
+
+  /* Aura · Banner — Dark. Backgrounds: purple-700, blue-800, red-700,
+     yellow-600, green-700, each at 30%. */
+  --color-semantic-neutral: #a68afa;
+  --color-semantic-neutral-bg: rgb(81 53 165 / 0.3);
+  --color-semantic-info: #84adff;
+  --color-semantic-info-bg: rgb(0 78 235 / 0.3);
+  --color-semantic-error: #fda29b;
+  --color-semantic-error-bg: rgb(217 45 32 / 0.3);
+  --color-semantic-warning: #fdb022;
+  --color-semantic-warning-bg: rgb(247 144 9 / 0.3);
+  --color-semantic-success: #12b76a;
+  --color-semantic-success-bg: rgb(3 152 85 / 0.3);
+
+  /* Aura · Chat — Dark. Background is purple-600 at 40%. */
+  --color-chat-text-black: #eaecf0;
+  --color-chat-text-white: #475467;
+  --color-chat-highlight: #a68afa;
+  --color-chat-background: rgb(102 67 206 / 0.4);
+  --color-chat-stroke-negative: #ffffff;
+  --color-chat-stroke-positive: #3d287b;
+  --color-chat-actions: #f3efff;
+  --color-chat-pressed: #d3c5fc;
+  /* gray-blue-300 at 50% — changed in Figma on 2026-10-08 (was solid). */
+  --color-chat-disabled: rgb(234 236 240 / 0.5);
+
+  /* Component/Tag — Dark. content was bound in Figma on 2026-10-08. */
+  --color-tag-purple-background: #291b52;
+  --color-tag-purple-content: #bca7fb;
+
+  /* Aura · Composer — Dark: the same primitives as Light. */
+  --color-composer-action-start: #281782;
+  --color-composer-action-end: #7a50f7;
+  --color-composer-attachment-bg: #ffffff;
+  --color-composer-attachment-stroke: #f2f4f7;
+
+  /* Aura · Nudge — Dark: a step lighter than the page, so the card lifts off
+     the #0D082B surface. purple-400 → purple-800, white text. */
+  --color-nudge-gradient-light: #906df8;
+  --color-nudge-gradient-dark: #3d287b;
+  --color-nudge-text: #ffffff;
+  --color-nudge-highlight: #d3c5fc;
+  --color-nudge-icon: #ffffff;
+
+  /* Aura · Form — Dark. */
+  --color-form-background: #1b0f57;
+  --color-form-stroke: #281782;
+  --color-form-icon: #eaecf0;
 }
+
+/* BEGIN generated: light scope — run `npm run tokens:light-scope` */
+[data-theme='light'] {
+  --color-text-primary: #1d2939;
+  --color-text-secondary: #475467;
+  --color-text-tertiary: #667085;
+  --color-text-placeholder: #98a2b3;
+  --color-text-disabled: #d0d5dd;
+  --color-text-inverse: #ffffff;
+  --color-text-on-brand: #ffffff;
+  --color-text-link: #6643ce;
+  --color-text-link-hover: #5135a5;
+  --color-surface-page: #fcfcfd;
+  --color-surface-subtle: #f9fafb;
+  --color-surface-card: #344054;
+  --color-surface-card-raised: #475467;
+  --color-surface-card-sunken: #1d2939;
+  --color-surface-overlay: #1d2939;
+  --color-surface-disabled: #f2f4f7;
+  --color-surface-inverse: #1d2939;
+  --color-surface-brand: #ff5a70;
+  --color-surface-brand-subtle: #de485d;
+  --color-border-default: #d0d5dd;
+  --color-border-subtle: #eaecf0;
+  --color-border-strong: #98a2b3;
+  --color-border-focus: #7a50f7;
+  --color-border-disabled: #eaecf0;
+  --color-border-error: #f04438;
+  --color-border-success: #12b76a;
+  --color-border-warning: #f79009;
+  --color-border-brand: #6643ce;
+  --color-border-inverse: #f2f4f7;
+  --color-accent-brand: #ff5a70;
+  --color-accent-purple: #7a50f7;
+  --color-accent-lavender: #5856b7;
+  --color-accent-blue: #528bff;
+  --color-accent-green: #32d583;
+  --color-accent-yellow: #fdb022;
+  --color-accent-red: #f97066;
+  --color-nav-glass-tint: rgb(255 255 255 / 0.52);
+  --color-nav-bg: #ffffff;
+  --color-nav-border: #f2f4f7;
+  --color-nav-indicator-bg: #d3c5fc;
+  --color-nav-indicator-pressed: #f2f4f7;
+  --color-nav-icon-default: #667085;
+  --color-nav-icon-selected: #3d287b;
+  --color-nav-icon-pressed: #475467;
+  --color-sheet-bg: #ffffff;
+  --color-sheet-border: #f2f4f7;
+  --color-close-bg: #f2f4f7;
+  --color-close-icon: #667085;
+  --color-home-indicator-bg: #ffffff;
+  --color-home-indicator-bar: #d0d5dd;
+  --color-stepitem-card-bg: #f2f4f7;
+  --color-stepitem-card-border: #eaecf0;
+  --color-stepitem-number-text: #281782;
+  --color-stepitem-text-primary: #1d2939;
+  --color-stepitem-text-secondary: #475467;
+  --color-general-input: #f9fafb;
+  --color-general-stroke: #ffffff;
+  --color-general-title: #1d2939;
+  --color-general-help-text: #667085;
+  --color-general-surface-purple: #d3c5fc;
+  --color-general-fade-purple: rgb(211 197 252 / 0);
+  --color-general-surface-white: #fcfcfd;
+  --color-general-fade-white: rgb(252 252 253 / 0);
+  --color-general-icon: #344054;
+  --color-general-blob-azul: #84adff;
+  --color-general-blob-purple: #906df8;
+  --color-general-gradient-light: #7a50f7;
+  --color-general-gradient-dark: #21136c;
+  --color-general-logo-white: #7a50f7;
+  --color-semantic-neutral: #6643ce;
+  --color-semantic-neutral-bg: #f3efff;
+  --color-semantic-info: #2970ff;
+  --color-semantic-info-bg: #eff4ff;
+  --color-semantic-error: #f04438;
+  --color-semantic-error-bg: #fee4e2;
+  --color-semantic-warning: #dc6803;
+  --color-semantic-warning-bg: #feefc7;
+  --color-semantic-success: #039855;
+  --color-semantic-success-bg: #ecfdf3;
+  --color-chat-text-black: #475467;
+  --color-chat-text-white: #f2f4f7;
+  --color-chat-highlight: #6643ce;
+  --color-chat-background: #f9fafb;
+  --color-chat-stroke-negative: #5135a5;
+  --color-chat-stroke-positive: #ffffff;
+  --color-chat-actions: #291b52;
+  --color-chat-pressed: #7064ac;
+  --color-chat-disabled: #d0d5dd;
+  --color-tag-purple-background: #d3c5fc;
+  --color-tag-purple-content: #6643ce;
+  --color-composer-action-start: #281782;
+  --color-composer-action-end: #7a50f7;
+  --color-composer-attachment-bg: #ffffff;
+  --color-composer-attachment-stroke: #f2f4f7;
+  --color-button-primary-filled-bg: #7a50f7;
+  --color-button-primary-filled-text: #ffffff;
+  --color-button-primary-outline-bg: #ffffff;
+  --color-button-primary-outline-border: #906df8;
+  --color-button-primary-outline-text: #6643ce;
+  --color-link-primary-default: #7a50f7;
+  --color-button-secondary-filled-bg: #667085;
+  --color-button-secondary-filled-text: #ffffff;
+  --color-button-secondary-outline-bg: #ffffff;
+  --color-button-secondary-outline-border: #d0d5dd;
+  --color-button-secondary-outline-text: #667085;
+  --color-button-primary-filled-bg-disabled: #a68afa;
+  --color-button-primary-filled-icon-disabled: #ffffff;
+  --color-nudge-gradient-light: #7a50f7;
+  --color-nudge-gradient-dark: #21136c;
+  --color-nudge-text: #f2f4f7;
+  --color-nudge-highlight: #d3c5fc;
+  --color-nudge-icon: #f9fafb;
+  --color-form-background: #ffffff;
+  --color-form-stroke: #eaecf0;
+  --color-form-icon: #667085;
+}
+/* END generated: light scope */
 
 html,
 body,
@@ -395,30 +691,299 @@ body {
   );
 }
 
-/* The Topbar's State=Scroll fade.
-
-   Figma draws it as a 360 x 218 rectangle pinned to the top of the *variant*,
-   which starts at the status bar — so 44 of those 218 sit above the bar. This
-   hub does not build the status bar, so the rectangle is re-anchored to the top
-   of the bar itself and loses those 44: 174 tall, with both stops shifted by
-   the same 44 so the fade keeps the exact relationship to the bar that the file
-   draws. Opaque ends 6.5 below the bar (44 + 48.868% of 218 = 106.53, less the
-   56 of bar height); alpha reaches 0 at 129.6 below it (105.3% of 218 = 229.55).
-   As percentages of 174 that is 35.94% and 106.64% — past 100% on purpose, the
-   gradient is cut off before it finishes, exactly as in Figma.
+/* Topbar · Scroll fade. Figma draws it as a 360 x 218 rectangle pinned to the
+   top of the variant, status-bar space included — which this build reserves
+   too, so the rectangle is used as drawn. Opaque to 48.87% of 218 (106.5: 6.5
+   below the bar), and alpha reaches 0 at 105.3% (229.6) — past 100% on
+   purpose: the gradient is cut off before it finishes, exactly as in Figma.
 
    Figma reports the angle as 180.264deg. That fraction of a degree is a dragged
    handle, not a decision: across 360 of width it drifts 1.7px. Straight down.
 
-   Built from --color-topbar-surface, so it follows the bar into Dark with no
-   token of its own — which is also what the file does, both fades being the
-   surface colour of their own mood. */
+   Both stops are tokens in the file: Surface white, and Fade white (the same
+   primitive at 0 opacity). */
 .topbar-fade {
   background: linear-gradient(
     180deg,
-    var(--color-topbar-surface) 35.94%,
-    transparent 106.64%
+    var(--color-general-surface-white) 48.87%,
+    var(--color-general-fade-white) 105.3%
   );
+}
+
+/* Composer · primary action (Voice, Send, Stop).
+   Not Primary/Filled/bg: the instances override the fill with a gradient
+   between Aura · Composer/Action start and Composer/Action end. Angle and
+   stops are the file's. */
+.composer-action {
+  background-image: linear-gradient(
+    137.46deg,
+    var(--color-composer-action-start) 7.13%,
+    var(--color-composer-action-end) 77.6%
+  );
+}
+
+/* Composer · return from Stop only. When a reply finishes, the field and its
+   actions fade in and rise 6 — a settle, not an entrance. No motion token
+   exists (DESIGN.md §11.11); 320ms on the same decelerating curve as the
+   keyboard, a build decision. */
+@keyframes composerReturn {
+  from { opacity: 0; transform: translateY(6px); }
+}
+.composer-return { animation: composerReturn 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .composer-return { animation: none; }
+}
+
+/* Form · Progressive blur overlay (13306:1472). One Figma layer, two effects,
+   so two elements here: the gradient fill, and the blur — which has to be its
+   own element because its mask would otherwise cut the fill too.
+   - Fill: to top, general/surface-white at 60% opacity (71.214%) →
+     general/fade-white (106.07%). Built from the two General tokens, so it
+     follows Dark. The 60% was added in Figma on 2026-10-08.
+   - Blur: Progressive, 40 at 47.43% from the top, easing to 0 at 10.64%.
+     Figma's blur radius is twice CSS's standard deviation, hence 20px.
+   Each layer animates itself: an opacity on a shared wrapper would start a
+   new backdrop root and flatten the blur (see CLAUDE.md). */
+.form-overlay-fill {
+  background: linear-gradient(
+    0deg,
+    color-mix(in srgb, var(--color-general-surface-white) 60%, transparent) 71.214%,
+    var(--color-general-fade-white) 106.07%
+  );
+}
+.form-overlay-blur {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  mask-image: linear-gradient(180deg, transparent 10.64%, #000 47.43%);
+}
+@keyframes formFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes formRise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.form-enter-fade { animation: formFade 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.form-enter-card { animation: formRise 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .form-enter-fade, .form-enter-card { animation: none; }
+}
+
+/* Composer · Scroll fade. Small draws it at 0.23deg and Large as a 182.25deg
+   gradient rotated 180 — 2.25deg. Both are dragged handles, not decisions
+   (2.25deg drifts 14px across 360), so both run straight up. The stops differ
+   between sizes and are kept per size. Built from the two General tokens,
+   so it follows the hub into Dark. */
+.composer-fade-small {
+  background: linear-gradient(
+    0deg,
+    var(--color-general-surface-purple) 58.07%,
+    var(--color-general-fade-purple) 92.02%
+  );
+}
+.composer-fade-large {
+  background: linear-gradient(
+    0deg,
+    var(--color-general-surface-purple) 59.89%,
+    var(--color-general-fade-purple) 92.14%
+  );
+}
+
+/* ==================================================================
+   Logo hero — 02 - Worker Design System, Logo (node 13153:4281), animated
+   after the "Aura Logo Animation" canvas in Claude Design.
+
+   Figma draws (ring geometry and colours, the star, its fills); the canvas
+   moves (every keyframe, duration and curve below is the canvas's). The
+   per-mood values here are NOT Figma tokens: the spark, glass-bloom and inner
+   glow colours exist only in the canvas, and the Light halo treatment is the
+   canvas's (the Dark rings, saturated and at 72%) — Figma's own Light drawing
+   is not used. Both by team decision, 2026-10-07.
+   ================================================================== */
+.logo-hero {
+  --logo-breath: 3s;
+  --logo-halo-filter: saturate(1.5) brightness(1.12);
+  --logo-halo-opacity: 0.72;
+  --logo-spark-core: #6643ce;
+  --logo-spark-mid: rgb(122 80 247 / 0.8);
+  --logo-spark-glow: rgb(160 130 255 / 0.5);
+  --logo-glass: #7a50f7;
+}
+/* Dark draws Figma's rings untouched. The canvas boosts them with
+   saturate(1.9) because its own ring colours were pastel; Figma's are not,
+   and boosting them would move the halo off the file. */
+[data-theme='dark'] .logo-hero {
+  --logo-halo-filter: none;
+  --logo-halo-opacity: 1;
+  --logo-spark-core: #ffffff;
+  --logo-spark-mid: rgb(255 255 255 / 0.85);
+  --logo-spark-glow: rgb(200 180 255 / 0.55);
+  --logo-glass: #ffffff;
+}
+/* The star's two fills are different paints (a translucent tint in Dark, a
+   gradient in Light), so both are drawn and the mood picks one. */
+.logo-hero .logo-star-dark { display: none; }
+[data-theme='dark'] .logo-hero .logo-star-dark { display: inline; }
+[data-theme='dark'] .logo-hero .logo-star-light { display: none; }
+
+@keyframes logoBlobIn { 0% { opacity: 0; transform: scale(0.85); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes logoHaloBreath { 0%, 100% { transform: scale(0.92); } 50% { transform: scale(1.06); } }
+@keyframes logoSpin { to { transform: rotate(360deg); } }
+@keyframes logoSpinRev { to { transform: rotate(-360deg); } }
+@keyframes logoMorph {
+  0%, 100% { border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%; }
+  25% { border-radius: 58% 42% 55% 45% / 45% 58% 42% 55%; }
+  50% { border-radius: 45% 55% 42% 58% / 55% 45% 58% 42%; }
+  75% { border-radius: 52% 48% 60% 40% / 40% 60% 48% 52%; }
+}
+@keyframes logoHue { 0%, 100% { filter: hue-rotate(0deg) blur(2px); } 50% { filter: hue-rotate(-35deg) blur(2px); } }
+@keyframes logoGlow { 0%, 100% { opacity: 0.35; transform: scale(0.9); } 50% { opacity: 0.8; transform: scale(1.15); } }
+@keyframes logoFade { 0% { opacity: 0; transform: scale(0.9) rotate(-4deg); } 100% { opacity: 1; transform: scale(1) rotate(0deg); } }
+@keyframes logoStarBreath { 0%, 100% { transform: scale(0.94); opacity: 0.88; } 50% { transform: scale(1.05); opacity: 1; } }
+@keyframes logoUnTilt { from { rotate: 20deg; } to { rotate: 0deg; } }
+
+.logo-hero .halo-in { animation: logoBlobIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.logo-hero .halo-breath { animation: logoHaloBreath var(--logo-breath) ease-in-out infinite; }
+.logo-hero .halo-a {
+  animation:
+    logoSpin calc(var(--logo-breath) * 1.5) linear infinite,
+    logoMorph calc(var(--logo-breath) * 1.25) ease-in-out infinite;
+}
+.logo-hero .halo-b {
+  animation:
+    logoSpinRev calc(var(--logo-breath) * 2.25) linear infinite,
+    logoHue calc(var(--logo-breath) * 1.75) ease-in-out infinite;
+}
+.logo-hero .inner-glow {
+  background: radial-gradient(circle, rgb(170 140 255 / 0.28) 0%, rgb(150 120 240 / 0.1) 40%, transparent 70%);
+  animation: logoGlow calc(var(--logo-breath) * 0.6) ease-in-out infinite;
+}
+.logo-hero .star-in { animation: logoFade 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both; }
+.logo-hero .star-breath { animation: logoStarBreath var(--logo-breath) ease-in-out infinite; }
+/* Hand-over from the intro: the drawing ends tilted 20deg; start mid-breath
+   and ease the tilt back to 0 so the change of state has no jump. */
+.logo-hero .star-breath.untilt {
+  animation:
+    logoStarBreath var(--logo-breath) ease-in-out calc(var(--logo-breath) * -0.25) infinite,
+    logoUnTilt 1.2s cubic-bezier(0.45, 0, 0.2, 1) both;
+}
+/* Reduced motion: the component skips the intro itself (SMIL cannot be
+   stopped from CSS); this stills everything that loops. */
+@media (prefers-reduced-motion: reduce) {
+  .logo-hero *,
+  .logo-hero *::before,
+  .logo-hero *::after { animation: none !important; }
+}
+
+/* ==================================================================
+   Floating button (Aura FAB). From the "Ontop Walkthroughs" Claude Design
+   prompt, which the team made the source over the Figma drawing
+   (2026-10-08). Every value below is the prompt's; colours are raw because
+   no token exists for them.
+   ================================================================== */
+@keyframes auraFabIn { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+.aura-fab {
+  filter: drop-shadow(0 10px 22px rgba(43, 22, 112, 0.38));
+  animation: auraFabIn 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  transition: scale 0.15s ease-out;
+}
+/* Dragging moves the anchor with `translate`, never `transform`: the button's
+   entry animation owns transform. */
+.aura-fab-anchor { transition: translate 0.25s cubic-bezier(0.2, 0.9, 0.3, 1); }
+.aura-fab-anchor.is-dragging { transition: none; }
+.aura-fab-orb { background: #6a3fe0; }
+/* The orb is the Logo hero (the prompt's AuraOrb is the same canvas), dark,
+   with the prompt's FAB overrides: no breathing on the blob, no blob intro,
+   and the first halo layer square instead of morphing. The prompt fixes the
+   blob at scale(1.6) of its own 92 box; in the hub's geometry (halo 357.2
+   round a 76 star) the same halo-to-logo ratio is scale(1). */
+.aura-fab-orb .halo-breath { animation: none !important; transform: scale(1) !important; }
+.aura-fab-orb .halo-in { animation: none !important; }
+.aura-fab-orb .halo-a { border-radius: 0 !important; }
+
+@keyframes auraFabSparkle {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.2) rotate(0deg); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(1) rotate(90deg); }
+}
+.aura-fab-sparkle { color: #7a50f7; animation: auraFabSparkle 0.6s ease-out both; }
+
+/* Nudge (Figma 13302:8980). The card and its caret share one fill: to the
+   bottom, nudge/gradient-light at -134.75% to nudge/gradient-dark at 50%,
+   from Figma's gradient transform — on each element's own box, as in the
+   file. The entry and the 3s fade are the prompt's; it grows from its caret. */
+@keyframes auraTipIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.92); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.aura-nudge-fill {
+  background: linear-gradient(
+    180deg,
+    var(--color-nudge-gradient-light) -134.75%,
+    var(--color-nudge-gradient-dark) 50%
+  );
+}
+.aura-nudge {
+  transform-origin: calc(100% - 28.5px) 100%;
+  animation: auraTipIn 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.1s both;
+  transition: opacity 0.45s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aura-fab,
+  .aura-fab *,
+  .aura-nudge,
+  .aura-fab-sparkle {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+    transition: none !important;
+  }
+}
+
+/* Messages · gradient text. The Aura name and the Thinking-Indicator label
+   fill their glyphs with general/gradient-light → gradient-dark, the same
+   stops (7.13% → 77.6%) at the file's own angles. background-clip needs a
+   class, not a utility. Both tokens move with the mood. */
+.chat-gradient-text {
+  background-image: linear-gradient(
+    var(--chat-gradient-angle, 160deg),
+    var(--color-general-gradient-light) 7.13%,
+    var(--color-general-gradient-dark) 77.6%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.chat-name { --chat-gradient-angle: 156.65deg; }
+.chat-thinking { --chat-gradient-angle: 164.68deg; }
+
+/* Composer page · iOS keyboard. Hub harness: the file's Keyboard/Default
+   variants, Dark=Off and Dark=On, picked by the hub's theme. */
+.keyboard-dark { display: none; }
+[data-theme='dark'] .keyboard-dark { display: block; }
+[data-theme='dark'] .keyboard-light { display: none; }
+
+/* Logo hero page · greeting. Hub harness from the same canvas, shown in the
+   preview only — not a design-system component, and not in Figma. */
+@keyframes greetingUp { 0% { opacity: 0; transform: translateY(14px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes greetingFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+.greeting-hi { animation: greetingUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.3s both; }
+.greeting-title {
+  background-image: linear-gradient(85deg, #7a50f7 0%, #21136c 40%, #7a50f7 60%, #21136c 100%);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation:
+    greetingUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 2.5s both,
+    greetingFlow 4.5s ease-in-out 2.5s infinite;
+}
+[data-theme='dark'] .greeting-title {
+  background-image: linear-gradient(126deg, #d3c5fc 0%, #6643ce 40%, #d3c5fc 60%, #6643ce 100%);
+}
+.greeting-still .greeting-hi,
+.greeting-still .greeting-title { animation-delay: 0s; }
+@media (prefers-reduced-motion: reduce) {
+  .greeting-hi,
+  .greeting-title { animation: none; }
 }
 
 .checker {

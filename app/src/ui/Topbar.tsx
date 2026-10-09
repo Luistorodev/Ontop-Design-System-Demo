@@ -5,16 +5,17 @@ import { ArrowLeftIcon, Menu04Icon } from '../icons/topbar'
    The screen's top chrome: back, title with an optional qualifier, and a
    trailing action.
 
-   Figma carries four variants, Mood x State. Mood is not modelled as a prop
-   here: Light and Dark resolve the same three tokens (text/primary for the
-   title and both icons, text/tertiary for the subtitle, topbar/surface for the
-   bar), so the hub's own [data-theme] switch reproduces both moods with one
-   component. What is left is State, which is a real behaviour rather than a
-   theme — see the `state` prop.
+   Figma carries two variants, State=Default and State=Scroll. Every colour is
+   a token from the Aura · General group — surface-white for the bar,
+   icon for both glyphs, title and help-text for the two strings — and each
+   has a Dark value, so the hub's [data-theme] switch covers the mood.
 
-   The variant frames are 360 x 100, but 44 of that is the status bar, which
-   this hub deliberately does not build: the component is the 360 x 56 "Top bar"
-   frame inside it. */
+   The variant frames are 360 x 100: a 44 Status Bar over the 56 "Top bar".
+   The Status Bar is a reference for the space to keep clear, not something to
+   draw — the operating system draws its own. So it is not rendered; its 44
+   becomes top padding, or the device's real top inset where that is larger
+   (59-62 on a Dynamic Island iPhone). Same reading as Background's home
+   indicator. */
 
 export function Topbar({
   title = 'Aura AI',
@@ -50,13 +51,16 @@ export function Topbar({
        Filling the container keeps those margins right on a wider device
        instead of stranding a 360 bar in the middle. Same call as
        NavigationBar. */
-    <header className={`relative w-full bg-topbar-surface ${className}`}>
+    <header
+      className={`relative w-full bg-general-surface-white pt-[max(44px,env(safe-area-inset-top))] ${className}`}
+    >
       {/* The fade is the first child so it paints over the bar's own
           background and under its content, which is the order Figma stacks
-          them in. It overflows the 56 of bar height on purpose — that overhang
+          them in. 218 from the top of the variant, status-bar space included;
+          it overflows the 100 of component height on purpose — that overhang
           below the bar is the whole point, and nothing here may clip it. */}
       {state === 'scroll' ? (
-        <div aria-hidden className="topbar-fade pointer-events-none absolute inset-x-0 top-0 h-[174px]" />
+        <div aria-hidden className="topbar-fade pointer-events-none absolute inset-x-0 top-0 h-[218px]" />
       ) : null}
 
       {/* 12 + 32 + 12 = the 56 the Figma frame reports. The height is composed
@@ -75,7 +79,7 @@ export function Topbar({
           type="button"
           onClick={onBack}
           aria-label={backLabel}
-          className="flex size-[32px] shrink-0 cursor-pointer items-center justify-center px-sp-08 py-[8px] text-text-primary outline-none [-webkit-tap-highlight-color:transparent] focus-visible:ring-2 focus-visible:ring-border-focus"
+          className="flex size-[32px] shrink-0 cursor-pointer items-center justify-center px-sp-08 py-[8px] text-general-icon outline-none [-webkit-tap-highlight-color:transparent] focus-visible:ring-2 focus-visible:ring-border-focus"
         >
           <span className="flex size-[24px] shrink-0 items-center justify-center">
             <ArrowLeftIcon />
@@ -87,8 +91,8 @@ export function Topbar({
               their 22 and 20 line boxes both end at 22. Baseline alignment
               would shift "Beta" down by the 2px difference in descender room. */}
           <div className="flex shrink-0 items-end gap-sp-04 whitespace-nowrap">
-            <p className="text-xl leading-title-md font-semibold text-text-primary">{title}</p>
-            {subtitle ? <p className="text-md leading-md text-text-tertiary">{subtitle}</p> : null}
+            <p className="text-xl leading-title-md font-semibold text-general-title">{title}</p>
+            {subtitle ? <p className="text-md leading-md text-general-help-text">{subtitle}</p> : null}
           </div>
         </div>
 
@@ -98,7 +102,7 @@ export function Topbar({
           type="button"
           onClick={onMenu}
           aria-label={menuLabel}
-          className="flex size-[32px] shrink-0 cursor-pointer items-center justify-center px-sp-08 py-[8px] text-text-primary outline-none [-webkit-tap-highlight-color:transparent] focus-visible:ring-2 focus-visible:ring-border-focus"
+          className="flex size-[32px] shrink-0 cursor-pointer items-center justify-center px-sp-08 py-[8px] text-general-icon outline-none [-webkit-tap-highlight-color:transparent] focus-visible:ring-2 focus-visible:ring-border-focus"
         >
           <span className="flex size-[24px] shrink-0 items-center justify-center">
             <Menu04Icon />
