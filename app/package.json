@@ -4,10 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/sync-light-scope.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/sync-light-scope.mjs",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tokens:light-scope": "node scripts/sync-light-scope.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.43.0",
